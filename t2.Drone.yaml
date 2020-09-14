@@ -1,3 +1,4 @@
+#test
 pipeline:
   deploy:
     image: quay.io/honestbee/drone-kubernetes
