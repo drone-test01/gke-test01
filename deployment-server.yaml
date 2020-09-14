@@ -1,33 +1,33 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: drone-test
+  name: drone-server
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: drone-test-app
+        app: drone-server-app
     spec:
       containers:
-      - name: drone-test
+      - name: drone-server
         image: drone/drone:1
         env:
         - name: DRONE_GITHUB_SERVER
           value: https://github.com
         - name: DRONE_GITHUB_CLIENT_ID
-          value: ef4639fd400fc610c5a4
+          value: 6d522d1d9aac7e7f5a7e
         - name: DRONE_GITHUB_CLIENT_SECRET
-          value: 4b1509b60f857548dbb20059f4388981f13a8b84
+          value: 183f34d8c1d39648a2f4b627a97923a27c50608c
         - name: DRONE_RPC_SECRET
-          value: test999999999
+          value: eeef077ae98a35bb610e5bda68c7c750
         - name: DRONE_SERVER_PROTO
           value: http
         - name: DRONE_SERVER_HOST
-          value: 35.222.165.52
+          value: 104.198.141.63
         - name: DRONE_DATABASE_DRIVER
           value: mysql
         - name: DRONE_DATABASE_DATASOURCE
-          value: root:password@tcp(10.4.1.12:3306)/drone?parseTime=true
+          value: root:password@tcp(10.4.2.3:3306)/drone?parseTime=true
         ports:
         - containerPort: 80
