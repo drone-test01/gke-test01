@@ -24,7 +24,8 @@ spec:
         - name: DRONE_SERVER_PROTO
           value: http
         - name: DRONE_SERVER_HOST
-          value: 104.198.141.63
+          #value: 104.198.141.63
+          value: 35.238.147.99
         - name: DRONE_DATABASE_DRIVER
           value: mysql
         - name: DRONE_DATABASE_DATASOURCE
