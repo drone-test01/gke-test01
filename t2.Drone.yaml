@@ -1,11 +1,41 @@
-#test
-pipeline:
-  deploy:
-    image: quay.io/honestbee/drone-kubernetes
-    kubernetes_server: https://35.224.39.203/
-    kubernetes_token: eyJhbGciOiJSUzI1NiIsImtpZCI6IldtRWVxUGpWVXljWklLWVZTNElyS2RrQ29xdGF5Y2FianpGTzRPTUNHQncifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4tZG40NWciLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6ImE5YzlkYTBkLWFlYjItNDg3Mi04YTVlLTcwZTNkZDRkNzg5ZiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.WBJD0XGsOmOMNTBAxWYcirYrFUkduW-EpBKVoU_EDC0Ouo2HjTmFEPklf5llnM3ebJb_dh8g2rgTUHlK76_6ohF0o7dVxMrl503CvhLV1kJzCSu8XBTszRxW2PRqKQeAUTZQx2rp9ZgOqY2jJJPG5FcQNc1BosNy_uD4g7PetxlFqvswc6F2RPYtSuG7sJ9T8u5Lzl_gwlrjm2Gva1G9Q3TT-KTNnp25sIaQaHpr43c0RW94mQcEFaaG-VzBfEmSBCEyTwUBCaiNr3ZT6IidJ2mxe9Kr2ojZ5tdh7VIXsQ8Rx9oNK986ffk5wUTouyLfP_bNEUBMSfd6XIOG2RmLLg
-    namespace: drone
-    deployment: my-deployment
+#Drone CI File!
+#Commit Message: Drone! Captain Canary is here! 
+#09/06 09:26 Drone.yaml
+#09/06 09:49 main.go
+#09/06 09:49 Dockerfile
+#09/14 20:16 git push
+#09/14 21:18 role create
+#09/20 19:25 restart
+
+kind: pipeline
+type: kubernetes
+name: default
+
+steps:
+
+- name: build
+  image: golang:1.13
+  commands:
+    - "go build -o ./myapp"
+
+- name: publish  
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
     repo: hsugatest01/drone-test
-    container: my-container
-    tag: mytag
+    auto_tag: true
+    auto_tag_suffix: drone-build
+
+#pipeline:
+#  deploy:
+#    image: quay.io/honestbee/drone-kubernetes
+#    kubernetes_server: https://c100-e.jp-tok.containers.cloud.ibm.com:30413
+#    kubernetes_token: Vu_i5huGQswiZkWFblOcNqmhZgQDgDdSvNTrQEuabws
+#    namespace: test-app
+#    deployment: my-deployment
+#    repo: hsugatest01/drone-test
+#    container: my-container
+#    tag: mytag
