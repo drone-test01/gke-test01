@@ -7,8 +7,14 @@ metadata:
   namespace: default
 
 steps:
-- name: greeting
-  image: golang:1.12
+- name: backend
+  image: golang
   commands:
   - go build
   - go test
+
+- name: frontend
+  image: node
+  commands:
+  - npm install
+  - npm test
