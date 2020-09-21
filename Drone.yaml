@@ -1,20 +1,22 @@
-# 0920:1747
 kind: pipeline
 type: kubernetes
 name: default
 
-metadata:
-  namespace: default
-
 steps:
-- name: backend
-  image: golang
-  commands:
-  - go build
-  - go test
 
-- name: frontend
-  image: node
+- name: build
+  image: golang:1.13
   commands:
-  - npm install
-  - npm test
+    - "go build -o ./myapp"
+
+- name: publish  
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: hsugatest01/drone-test
+    auto_tag: true
+    auto_tag_suffix: drone-build
+

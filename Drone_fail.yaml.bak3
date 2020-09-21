@@ -1,0 +1,20 @@
+# 0920:1747
+kind: pipeline
+type: kubernetes
+name: default
+
+metadata:
+  namespace: default
+
+steps:
+- name: backend
+  image: golang
+  commands:
+  - go build
+  - go test
+
+- name: frontend
+  image: node
+  commands:
+  - npm install
+  - npm test
